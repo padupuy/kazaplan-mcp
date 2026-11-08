@@ -173,7 +173,7 @@ def kz_sketch(room: str | None = None, decor_path: str | None = None) -> dict:
     out = _run(sketch.render, _plan(), room, paints)
     path = SKETCHES / f"{sketch.slug(room or 'maison') or 'maison'}.svg"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(out.pop("svg"))
+    path.write_text(out.pop("svg"), encoding="utf-8")
     return {"svg_path": str(path.resolve()), **out}
 
 

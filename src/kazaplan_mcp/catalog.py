@@ -143,7 +143,7 @@ def _fr(label) -> str:
 
 
 def _load(src: Path, name: str):
-    return json.loads((src / name).read_text())
+    return json.loads((src / name).read_text(encoding="utf-8"))
 
 
 def _usual_price(per_store: dict | None):
@@ -285,8 +285,8 @@ def build(src: Path = CACHE, log=print):
         )
 
     CACHE.mkdir(parents=True, exist_ok=True)
-    (CACHE / "index.json").write_text(json.dumps(index, ensure_ascii=False))
-    (CACHE / "templates.json").write_text(json.dumps(templates, ensure_ascii=False))
+    (CACHE / "index.json").write_text(json.dumps(index, ensure_ascii=False), encoding="utf-8")
+    (CACHE / "templates.json").write_text(json.dumps(templates, ensure_ascii=False), encoding="utf-8")
     n_models = sum(1 for x in index if x["kind"] == "model")
     log(f"index.json : {n_models} modèles ({len(templates)} plaçables), {len(index) - n_models} matériaux")
 
@@ -296,7 +296,7 @@ def index() -> list[dict]:
     path = CACHE / "index.json"
     if not path.exists():
         raise _missing()
-    items = json.loads(path.read_text())
+    items = json.loads(path.read_text(encoding="utf-8"))
     for it in items:
         hay = " ".join(
             [
@@ -323,7 +323,7 @@ def templates() -> dict[str, list]:
     path = CACHE / "templates.json"
     if not path.exists():
         raise _missing()
-    return json.loads(path.read_text())
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def get(item_id: str) -> dict | None:

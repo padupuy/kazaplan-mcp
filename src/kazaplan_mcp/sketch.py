@@ -718,7 +718,7 @@ def board(plan: Plan, decor: dict) -> tuple[str, dict[str, str]]:
 
 
 def read_decor(path: Path) -> dict:
-    return yaml.safe_load(path.read_text().split("---")[1])
+    return yaml.safe_load(path.read_text(encoding="utf-8").split("---")[1])
 
 
 def plan_source(ref: str) -> Path:
@@ -744,7 +744,7 @@ def write_board(plan: Plan, decor_path: Path) -> dict:
         if target.is_symlink() or not target.resolve().is_relative_to(out):
             raise ValueError(f"Chemin refusé : {rel}")
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(content)
+        target.write_text(content, encoding="utf-8")
         written.append(rel)
     return {"board": str(out / "PLANCHES.md"), "files": sorted(written)}
 

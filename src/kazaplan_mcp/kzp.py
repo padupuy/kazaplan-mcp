@@ -143,9 +143,10 @@ def main():
         src, out = Path(sys.argv[2]), Path(sys.argv[3])
         out.mkdir(parents=True, exist_ok=True)
         h, metadata, project, blobs = load(src.read_bytes())
-        (out / "header.json").write_text(json.dumps(h, indent=2))
-        (out / "metadata.json").write_text(json.dumps(metadata, indent=2, ensure_ascii=False))
-        (out / "project.json").write_text(json.dumps(project, indent=2, ensure_ascii=False))
+        (out / "header.json").write_text(json.dumps(h, indent=2), encoding="utf-8")
+        dump = lambda obj: json.dumps(obj, indent=2, ensure_ascii=False)
+        (out / "metadata.json").write_text(dump(metadata), encoding="utf-8")
+        (out / "project.json").write_text(dump(project), encoding="utf-8")
         if blobs:
             (out / "blobs").mkdir(exist_ok=True)
             meta = {}
@@ -157,16 +158,17 @@ def main():
                     "mime": b["mime"],
                     "metadata": b["metadata"],
                 }
-            (out / "blobs.json").write_text(json.dumps(meta, indent=2))
+            (out / "blobs.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
         print(f"Décompressé dans {out} ({len(blobs)} blob(s))")
     elif cmd == "pack":
         src, dst = Path(sys.argv[2]), Path(sys.argv[3])
-        h = json.loads((src / "header.json").read_text()) if (src / "header.json").exists() else {}
-        metadata = json.loads((src / "metadata.json").read_text())
-        project = json.loads((src / "project.json").read_text())
+        header = src / "header.json"
+        h = json.loads(header.read_text(encoding="utf-8")) if header.exists() else {}
+        metadata = json.loads((src / "metadata.json").read_text(encoding="utf-8"))
+        project = json.loads((src / "project.json").read_text(encoding="utf-8"))
         blobs = {}
         if (src / "blobs.json").exists():
-            for name, m in json.loads((src / "blobs.json").read_text()).items():
+            for name, m in json.loads((src / "blobs.json").read_text(encoding="utf-8")).items():
                 blobs[name] = {
                     "data": (src / "blobs" / m["file"]).read_bytes(),
                     "mime": m["mime"],

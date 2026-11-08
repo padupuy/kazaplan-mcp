@@ -51,11 +51,11 @@ def test_save_out_path_requires_kzp(opened, target):
 @pytest.mark.skipif(sys.platform == "win32", reason="symlinks need privileges on Windows")
 def test_save_out_path_refuses_symlink(opened):
     victim = opened / "victim.txt"
-    victim.write_text("keep")
+    victim.write_text("keep", encoding="utf-8")
     (opened / "link.kzp").symlink_to(victim)
     with pytest.raises(ToolError):
         call("kz_save", {"out_path": str(opened / "link.kzp")})
-    assert victim.read_text() == "keep"
+    assert victim.read_text(encoding="utf-8") == "keep"
 
 
 def test_save_out_path_writes_kzp(opened):

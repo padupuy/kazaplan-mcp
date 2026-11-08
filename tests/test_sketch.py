@@ -143,22 +143,22 @@ rooms:
 def test_write_board_stays_next_to_decor(monkeypatch, tmp_path):
     decor = tmp_path / "maison" / "DECOR.md"
     decor.parent.mkdir()
-    decor.write_text(DECOR_YAML.replace('  "../../evil": "#000000"\n', ""))
+    decor.write_text(DECOR_YAML.replace('  "../../evil": "#000000"\n', ""), encoding="utf-8")
     out = sketch.write_board(furnished_plan(monkeypatch), decor)
     assert "PLANCHES.md" in out["files"] and "plans/salon.svg" in out["files"]
-    assert (decor.parent / "PLANCHES.md").read_text().startswith("# Maison test")
+    assert (decor.parent / "PLANCHES.md").read_text(encoding="utf-8").startswith("# Maison test")
 
 
 def test_write_board_refuses_paths_outside_decor_dir(monkeypatch, tmp_path):
     decor = tmp_path / "maison" / "DECOR.md"
     decor.parent.mkdir()
-    decor.write_text(DECOR_YAML)
+    decor.write_text(DECOR_YAML, encoding="utf-8")
     with pytest.raises(ValueError, match="refusé"):
         sketch.write_board(furnished_plan(monkeypatch), decor)
     assert not (tmp_path / "evil.svg").exists()
 
 
 def test_write_board_requires_a_decor_file(monkeypatch, tmp_path):
-    (tmp_path / "notes.md").write_text(DECOR_YAML)
+    (tmp_path / "notes.md").write_text(DECOR_YAML, encoding="utf-8")
     with pytest.raises(ValueError, match="DECOR.md"):
         sketch.write_board(furnished_plan(monkeypatch), tmp_path / "notes.md")
