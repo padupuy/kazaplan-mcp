@@ -32,7 +32,7 @@ Un test vert ne prouve pas que le planner accepte le plan. Toute écriture qui t
 ## Sécurité
 
 - L'écriture en ligne exige la liste blanche `KZ_ALLOWED_PLANS` ; chaque ouverture et chaque envoi laissent une copie dans `backups/` du dossier de données.
-- Les chemins fournis par l'assistant sont bornés : `.kzp` pour `kz_save`, `.svg` pour `kz_sketch`, dossier du `DECOR.md` pour `kz_board`. Tout nouvel outil qui écrit un fichier suit la même règle, avec un test.
+- Les chemins fournis par l'assistant sont bornés : `.kzp` pour `kz_save`, dossier de données pour `kz_sketch`, dossier du `DECOR.md` pour `kz_board`. Tout nouvel outil qui écrit un fichier suit la même règle, avec un test.
 - `KZ_TOKEN` (JWT Kazaplan, ~7 jours) vit uniquement dans l'environnement ; jamais de jeton, de `.kzp` réel ni d'identifiant de plan personnel dans le dépôt.
 
 ## Conventions

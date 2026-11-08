@@ -162,18 +162,16 @@ def kz_check_room(room: str) -> dict:
 
 
 @mcp.tool
-def kz_sketch(room: str | None = None, decor_path: str | None = None, out_path: str | None = None) -> dict:
+def kz_sketch(room: str | None = None, decor_path: str | None = None) -> dict:
     """Plan SVG vu de dessus d'une pièce (ou du bâtiment principal si room est absent), comme le plan 2D
     du planner : murs, portes, fenêtres, tapis, meubles (une lettre par modèle, cf. legend), luminaires.
     decor_path (DECOR.md) : trace en liseré la peinture de chaque mur aux couleurs de la palette.
-    Écrit le fichier (out_path en .svg, sinon dans le dossier de données) et renvoie son chemin ;
+    Écrit le fichier dans le dossier de données (sketches/<pièce>.svg) et renvoie son chemin ;
     wall / on_top / ceiling listent les objets muraux, posés sur un meuble, au plafond ;
     schedule = nomenclature (code, libellé, dimensions, emplacement), un élément par objet."""
     paints = sketch.paint_colors(sketch.read_decor(Path(decor_path))) if decor_path else None
     out = _run(sketch.render, _plan(), room, paints)
-    path = Path(out_path).expanduser() if out_path else SKETCHES / f"{sketch.slug(room or 'maison')}.svg"
-    if path.suffix.lower() != ".svg" or path.is_symlink():
-        raise ToolError("out_path doit être un fichier .svg (pas un lien symbolique)")
+    path = SKETCHES / f"{sketch.slug(room or 'maison') or 'maison'}.svg"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(out.pop("svg"))
     return {"svg_path": str(path.resolve()), **out}

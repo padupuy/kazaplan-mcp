@@ -1,5 +1,6 @@
 import asyncio
 import sys
+from pathlib import Path
 
 import pytest
 from fastmcp import Client
@@ -86,14 +87,16 @@ def test_copy_plan_backs_up_target_then_uploads_source(opened, monkeypatch):
     assert server.STATE["plan_id"] == "999"
 
 
-@pytest.mark.parametrize("target", ["evil.sh", ".zshrc", "plan.svg.txt"])
-def test_sketch_out_path_requires_svg(opened, target, monkeypatch):
+def test_sketch_writes_only_in_data_dir(opened, monkeypatch):
     from .test_plan import ITEMS
 
     monkeypatch.setattr("kazaplan_mcp.catalog.get", ITEMS.get)
-    with pytest.raises(ToolError, match=".svg"):
-        call("kz_sketch", {"out_path": str(opened / target)})
-    assert not (opened / target).exists()
+    monkeypatch.setattr(server, "SKETCHES", opened / "sketches")
+    with pytest.raises(ToolError):
+        call("kz_sketch", {"out_path": str(opened / "evil.svg")})
+    assert not (opened / "evil.svg").exists()
+    out = call("kz_sketch", {"room": "../../Salon"}).data
+    assert Path(out["svg_path"]).parent == (opened / "sketches").resolve()
 
 
 def test_data_dir_follows_env(monkeypatch, tmp_path):
