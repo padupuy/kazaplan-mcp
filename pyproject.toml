@@ -1,0 +1,45 @@
+[project]
+name = "kazaplan-mcp"
+version = "0.1.0"
+description = "Serveur MCP non officiel pour le concepteur 3D Leroy Merlin (Virtual Home, moteur Kazaplan)"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Pierre-Alexandre Dupuy" }]
+requires-python = ">=3.11"
+keywords = ["mcp", "kazaplan", "leroy-merlin", "virtual-home", "concepteur-3d", "floor-plan", "interior-design"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Natural Language :: French",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics :: 3D Modeling",
+]
+dependencies = ["fastmcp>=2.10", "httpx>=0.27", "pyyaml>=6", "numpy>=1.26", "pillow>=10"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+kazaplan-mcp = "kazaplan_mcp.server:main"
+
+[project.urls]
+Homepage = "https://github.com/padupuy/kazaplan-mcp"
+Issues = "https://github.com/padupuy/kazaplan-mcp/issues"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+ignore = ["E731"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

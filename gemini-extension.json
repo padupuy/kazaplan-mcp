@@ -1,0 +1,10 @@
+{
+  "name": "kazaplan",
+  "version": "0.1.0",
+  "mcpServers": {
+    "kazaplan": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/padupuy/kazaplan-mcp", "kazaplan-mcp"]
+    }
+  }
+}

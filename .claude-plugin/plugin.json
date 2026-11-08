@@ -1,0 +1,20 @@
+{
+  "name": "kazaplan",
+  "description": "Concepteur 3D Leroy Merlin (moteur Kazaplan) : serveur MCP non officiel + skills d'aménagement, de décoration et de tracé de plan",
+  "version": "0.1.0",
+  "author": { "name": "Pierre-Alexandre Dupuy" },
+  "homepage": "https://github.com/padupuy/kazaplan-mcp",
+  "repository": "https://github.com/padupuy/kazaplan-mcp",
+  "license": "MIT",
+  "keywords": ["leroy-merlin", "kazaplan", "3d", "floor-plan", "interior-design"],
+  "mcpServers": {
+    "kazaplan": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/padupuy/kazaplan-mcp", "kazaplan-mcp"],
+      "env": {
+        "KZ_TOKEN": "${KZ_TOKEN:-}",
+        "KZ_ALLOWED_PLANS": "${KZ_ALLOWED_PLANS:-}"
+      }
+    }
+  }
+}
