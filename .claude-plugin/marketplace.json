@@ -1,6 +1,11 @@
 {
   "name": "kazaplan-mcp",
-  "owner": { "name": "Pierre-Alexandre Dupuy" },
+  "owner": {
+    "name": "Pierre-Alexandre Dupuy"
+  },
+  "metadata": {
+    "description": "Concepteur 3D Leroy Merlin (moteur Kazaplan) : serveur MCP non officiel et skills d'aménagement, de décoration et de tracé de plan"
+  },
   "plugins": [
     {
       "name": "kazaplan",
