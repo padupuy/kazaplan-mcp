@@ -10,7 +10,7 @@
   "mcpServers": {
     "kazaplan": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/padupuy/kazaplan-mcp", "kazaplan-mcp"],
+      "args": ["kazaplan-mcp"],
       "env": {
         "KZ_TOKEN": "${KZ_TOKEN:-}",
         "KZ_ALLOWED_PLANS": "${KZ_ALLOWED_PLANS:-}"

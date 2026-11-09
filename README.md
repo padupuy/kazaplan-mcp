@@ -43,7 +43,7 @@ Deux façons de lancer le serveur, sans rien cloner :
 
 | | Prérequis | Commande |
 |---|---|---|
-| **uvx** (recommandé) | [uv](https://docs.astral.sh/uv/getting-started/installation/) | `uvx --from git+https://github.com/padupuy/kazaplan-mcp kazaplan-mcp` |
+| **uvx** (recommandé) | [uv](https://docs.astral.sh/uv/getting-started/installation/) | `uvx kazaplan-mcp` |
 | **Docker** | Docker | `docker run -i --rm -v kazaplan-data:/data ghcr.io/padupuy/kazaplan-mcp` |
 
 Installer uv : `curl -LsSf https://astral.sh/uv/install.sh | sh` (macOS / Linux) ou
@@ -54,7 +54,7 @@ index local (≈ 25 Mo) et jette le reste. Pendant ce temps, les outils du catal
 téléchargement ». Pour le faire à l'avance, ou récupérer plus tard les nouveautés :
 
 ```bash
-uvx --from git+https://github.com/padupuy/kazaplan-mcp kazaplan-mcp catalog
+uvx kazaplan-mcp catalog
 ```
 
 Vous n'utilisez pas Claude Code ? Passez à l'[étape 2](#2-jeton-et-identifiant-du-plan). Avec Claude Code, le plugin
@@ -132,7 +132,7 @@ Le plus simple est le plugin (voir [Démarrage rapide](#1-démarrage-rapide)) ; 
 ```bash
 claude mcp add kazaplan --scope user \
   -e KZ_TOKEN="$KZ_TOKEN" -e KZ_ALLOWED_PLANS="22222222" \
-  -- uvx --from git+https://github.com/padupuy/kazaplan-mcp kazaplan-mcp
+  -- uvx kazaplan-mcp
 ```
 
 </details>
@@ -147,7 +147,7 @@ Réglages → Développeur → Modifier la configuration (`claude_desktop_config
   "mcpServers": {
     "kazaplan": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/padupuy/kazaplan-mcp", "kazaplan-mcp"],
+      "args": ["kazaplan-mcp"],
       "env": { "KZ_TOKEN": "collez-votre-jeton-ici", "KZ_ALLOWED_PLANS": "22222222" }
     }
   }
@@ -166,7 +166,7 @@ Si `uvx` est introuvable, mettez son chemin absolu (`which uvx`). Quittez compl�
 ```toml
 [mcp_servers.kazaplan]
 command = "uvx"
-args = ["--from", "git+https://github.com/padupuy/kazaplan-mcp", "kazaplan-mcp"]
+args = ["kazaplan-mcp"]
 env = { KZ_TOKEN = "collez-votre-jeton-ici", KZ_ALLOWED_PLANS = "22222222" }
 ```
 
@@ -194,7 +194,7 @@ gemini extensions install https://github.com/padupuy/kazaplan-mcp
   "mcpServers": {
     "kazaplan": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/padupuy/kazaplan-mcp", "kazaplan-mcp"],
+      "args": ["kazaplan-mcp"],
       "env": { "KZ_TOKEN": "collez-votre-jeton-ici", "KZ_ALLOWED_PLANS": "22222222" }
     }
   }
@@ -215,7 +215,7 @@ gemini extensions install https://github.com/padupuy/kazaplan-mcp
     "kazaplan": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/padupuy/kazaplan-mcp", "kazaplan-mcp"],
+      "args": ["kazaplan-mcp"],
       "env": { "KZ_TOKEN": "${input:kz-token}", "KZ_ALLOWED_PLANS": "22222222" }
     }
   }

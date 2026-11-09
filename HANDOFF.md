@@ -122,7 +122,7 @@ Références connues pour valider : `model-427` (pergola 319×355×233), `model-
 6. Prefabs multi-structures : positions relatives (y négatifs observés) à vérifier visuellement.
 
 ### Suite
-- Publication PyPI (`uvx kazaplan-mcp` sans `--from git+…`) : déclarer le *trusted publisher* sur PyPI, puis pousser un tag `v*`.
+- Nouvelle version : aligner la version dans `pyproject.toml`, `.claude-plugin/plugin.json` et `gemini-extension.json`, puis publier une release GitHub `vX.Y.Z` (tag signé) : PyPI et GHCR suivent.
 - Tracé d'un plan d'après photo (`kazaplan-floorplan`) à valider de bout en bout.
 
 ## 7. Règles apprises sur le planner (2026-10-14, code du bundle `planner.kazaplan.com/planner/chunks/`)
